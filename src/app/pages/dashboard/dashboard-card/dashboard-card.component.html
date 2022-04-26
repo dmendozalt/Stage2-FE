@@ -1,0 +1,19 @@
+<mat-card class="card" [ngClass]="{'card--edit':article.editMode}">
+    <mat-icon aria-hidden="false" (click)="deleteCard()">close</mat-icon>
+    <img mat-card-image [src]="journal_image">
+    <mat-card-title>{{article.title_display}}</mat-card-title>
+    <mat-card-subtitle>Journal: {{article.journal}}</mat-card-subtitle>
+    <mat-card-content>
+        <p *ngIf="abstractToggle else elseBlock">{{article.abstract}}</p>
+        <ng-template #elseBlock>
+            <p>Please, click on "Show Abstract" button for show the abstract of the article</p>
+        </ng-template>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="toggleShowAbstract()">Show Abstract</button>
+        <button mat-raised-button color="primary" (click)="setEditMode()" *ngIf="!article.editMode else elseButton">Edit</button>
+        <ng-template #elseButton>
+            <button mat-raised-button color="warn" (click)="cancelEditMode()">Cancel</button>
+        </ng-template>
+    </mat-card-actions>
+</mat-card>

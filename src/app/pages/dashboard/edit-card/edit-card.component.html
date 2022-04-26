@@ -1,0 +1,21 @@
+<mat-card class="form-card">
+    <mat-card-title>Crear y editar articulos</mat-card-title>
+    <mat-card-content class="form-card__container">
+        <mat-form-field class="form-card__item">
+            <mat-label>Article title</mat-label>
+            <input matInput type="text" placeholder="Article title" [(ngModel)]="title" />
+        </mat-form-field>
+        <mat-form-field class="form-card__item">
+            <mat-label>Journal</mat-label>
+            <input matInput type="text" placeholder="Journal" [(ngModel)]="journal" />
+        </mat-form-field>
+        <mat-form-field class="form-card__item">
+            <mat-label>Abstract</mat-label>
+            <textarea textarea matInput cols="30" rows="10" placeholder="Abstract..." [(ngModel)]="abstract"></textarea>
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions class="form-card__actions-container">
+        <span class="form-card__spacer"></span>
+        <button mat-raised-button [color]="editArticle.editMode?'accent':'primary'" class="form-card__button" (click)="pushArticle()">{{editArticle.editMode?'Update':'Create'}}</button>
+    </mat-card-actions>
+</mat-card>
