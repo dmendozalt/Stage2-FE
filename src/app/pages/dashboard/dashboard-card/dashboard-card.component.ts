@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Article } from 'src/app/interfaces/article/article.interface';
 import Swal from 'sweetalert2';
 
@@ -7,39 +15,55 @@ import Swal from 'sweetalert2';
   templateUrl: './dashboard-card.component.html',
   styleUrls: ['./dashboard-card.component.scss'],
 })
-export class DashboardCardComponent implements OnInit {
+export class DashboardCardComponent implements OnInit, OnChanges {
+  articleForm!: FormGroup;
+
   @Input()
   article!: Article;
 
   @Output() removeCard = new EventEmitter();
 
-  @Output() editCard = new EventEmitter();
-
-  @Output() clearEdit = new EventEmitter();
-
   abstractToggle: boolean = false;
   journal_image: string = '';
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+    this.articleForm = this.formBuilder.group({
+      title: [this.article.title_display, Validators.required],
+      journal: [this.article.journal, Validators.required],
+      abstract: [this.article.abstract, Validators.required],
+    });
+  }
+
+  ngOnChanges(): void {
     this.journal_image = this.article.journal.toUpperCase().includes('PLOS ONE')
       ? 'assets/plos.png'
       : 'assets/not_found.png';
+  }
+
+  update(): void {
+    const titleInput = this.articleForm.get('title');
+    const journalInput = this.articleForm.get('journal');
+    const abstractInput = this.articleForm.get('abstract');
+
+    this.article.title_display = titleInput?.value;
+    this.article.journal = journalInput?.value;
+    this.article.abstract = abstractInput?.value;
+
+    this.journal_image = this.article.journal.toUpperCase().includes('PLOS ONE')
+      ? 'assets/plos.png'
+      : 'assets/not_found.png';
+
+    this.toggleEditMode();
   }
 
   toggleShowAbstract(): void {
     this.abstractToggle = !this.abstractToggle;
   }
 
-  setEditMode(): void {
-    this.article.editMode = true;
-    this.editCard.emit();
-  }
-
-  cancelEditMode(): void {
-    this.article.editMode = false;
-    this.clearEdit.emit();
+  toggleEditMode(): void {
+    this.article.editMode = !this.article.editMode;
   }
 
   deleteCard(): void {

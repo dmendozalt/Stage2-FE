@@ -1,5 +1,5 @@
 <mat-card class="form-card">
-    <mat-card-title>Crear y editar articulos</mat-card-title>
+    <mat-card-title>Create article</mat-card-title>
     <mat-card-content class="form-card__container">
         <mat-form-field class="form-card__item">
             <mat-label>Article title</mat-label>
@@ -16,6 +16,6 @@
     </mat-card-content>
     <mat-card-actions class="form-card__actions-container">
         <span class="form-card__spacer"></span>
-        <button mat-raised-button [color]="editArticle.editMode?'accent':'primary'" class="form-card__button" (click)="pushArticle()">{{editArticle.editMode?'Update':'Create'}}</button>
+        <button mat-raised-button color="primary" class="form-card__button" (click)="pushArticle()">Create</button>
     </mat-card-actions>
 </mat-card>

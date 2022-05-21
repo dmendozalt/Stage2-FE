@@ -6,7 +6,7 @@ import { DashboardListComponent } from './dashboard-list/dashboard-list.componen
 import { DashboardCardComponent } from './dashboard-card/dashboard-card.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { EditCardComponent } from './edit-card/edit-card.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,6 +14,12 @@ import { FormsModule } from '@angular/forms';
     DashboardCardComponent,
     EditCardComponent,
   ],
-  imports: [CommonModule, DashboardRoutingModule, MaterialModule, FormsModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class DashboardModule {}

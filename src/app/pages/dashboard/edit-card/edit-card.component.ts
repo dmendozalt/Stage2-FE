@@ -9,9 +9,6 @@ import { Article } from 'src/app/interfaces/article/article.interface';
 export class EditCardComponent implements OnInit {
   constructor() {}
 
-  @Input()
-  editArticle!: Article;
-
   @Output() setArticle = new EventEmitter();
 
   title: string = '';
@@ -20,21 +17,9 @@ export class EditCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  ngOnChanges(): void {
-    if (this.editArticle.editMode) {
-      this.title = this.editArticle.title_display;
-      this.journal = this.editArticle.journal;
-      this.abstract = this.editArticle.abstract;
-    } else {
-      this.title = '';
-      this.journal = '';
-      this.abstract = '';
-    }
-  }
-
   pushArticle(): void {
     this.setArticle.emit({
-      id: this.editArticle.id,
+      id: '',
       title: this.title,
       journal: this.journal,
       abstract: this.abstract,
